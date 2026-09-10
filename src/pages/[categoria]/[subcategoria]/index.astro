@@ -1,6 +1,8 @@
 ---
 import { categorias, productos } from '../../../data/catalogo';
 
+const base = import.meta.env.BASE_URL;
+
 export function getStaticPaths() {
   return categorias.flatMap((categoria) =>
     categoria.subcategorias.map((subcategoria) => ({
@@ -30,7 +32,7 @@ const items = productos.filter(
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href={`${base}css/style.css`} />
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">Saltar al contenido</a>
@@ -49,15 +51,15 @@ const items = productos.filter(
     <header class="header">
       <div class="container">
         <nav class="navbar navbar-expand-lg align-items-center" aria-label="Navegación principal">
-          <a class="navbar-brand header__logo" href="/" aria-label="CaterTrack inicio">
-            <img src="/assets/images/foot.webp" alt="CaterTrack logo" class="header__logo-image" />
+          <a class="navbar-brand header__logo" href={base} aria-label="CaterTrack inicio">
+            <img src={`${base}assets/images/foot.webp`} alt="CaterTrack logo" class="header__logo-image" />
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
             <span></span><span></span><span></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav header__menu">
-              <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+              <li class="nav-item"><a class="nav-link" href={base}>Inicio</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Novedades</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Repuestos Maquinaria Pesada</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Sucursales</a></li>
@@ -75,7 +77,7 @@ const items = productos.filter(
         <ul>
           {categorias.map((item) => (
             <li>
-              <a href={`/${item.slug}`} aria-current={item.slug === categoria ? 'page' : undefined}>{item.nombre}</a>
+              <a href={`${base}${item.slug}`} aria-current={item.slug === categoria ? 'page' : undefined}>{item.nombre}</a>
             </li>
           ))}
         </ul>
@@ -94,7 +96,7 @@ const items = productos.filter(
             {items.map((producto) => (
               <article class="product-card">
                 <div class="product-card__visual">
-                  <img src={producto.foto || '/assets/images/products/placeholder.svg'} alt={producto.nombre} loading="lazy" />
+                  <img src={producto.foto || `${base}assets/images/products/placeholder.svg`} alt={producto.nombre} loading="lazy" />
                 </div>
                 <div class="product-card__content">
                   <span class="product-card__category">{producto.subcategoria}</span>
@@ -105,7 +107,7 @@ const items = productos.filter(
                     <div><dt>Aplicación</dt><dd>{producto.aplicacion}</dd></div>
                   </dl>
                   <p class="product-card__description">{producto.descripcion}</p>
-                  <a class="product-card__cta" href={`/${categoria}/${subcategoria}/${producto.slug}`}>
+                  <a class="product-card__cta" href={`${base}${categoria}/${subcategoria}/${producto.slug}`}>
                     Solicitar cotización
                     <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                   </a>
@@ -121,7 +123,7 @@ const items = productos.filter(
       <div class="container footer-grid">
         <div class="footer-branding">
           <div class="footer__brand">
-            <img src="/assets/images/foot.webp" alt="CaterTrack logo" class="footer__logo-image" />
+            <img src={`${base}assets/images/foot.webp`} alt="CaterTrack logo" class="footer__logo-image" />
           </div>
           <p>Especialistas en repuestos para maquinaria pesada, con soluciones rápidas y asesoría técnica especializada.</p>
         </div>
